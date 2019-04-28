@@ -89,9 +89,9 @@ export default {
         },
         {
           icon: 'apps',
-          title: 'About',
+          title: 'user',
           to: {
-            path: '/about'
+            path: '/user'
           }
         }
       ],
