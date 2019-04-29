@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const history = require('connect-history-api-fallback');
 const cors = require('cors');
 
 
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
 app.use('/api', require('./routes/api'))
+app.use(history());
 app.use(express.static(path.join(__dirname, '..', 'fe', 'dist')));
 
 // catch 404 and forward to error handler
