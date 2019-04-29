@@ -4,7 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
-const mongoose = require('mongoose');
 
 
 var app = express();
@@ -37,40 +36,10 @@ app.use(function(err, req, res, next) {
 
 module.exports = app;
 
-const userSchema = new mongoose.Schema({
-  name : {type: String, default: ''},
-  age: {type: Number, default: 1}
-});
-
-const user = mongoose.model('user', userSchema);
+const mongoose = require('mongoose');
+const user = require('./models/users');
 
 mongoose.connect('mongodb://localhost:27017/nemv', { useNewUrlParser: true }, (err) => {
-   if (err) return console.error(err)
-   console.log('mongoose connected!')
-
-   // user.create({ name: '하하'})
-   // .then( r => console.log(r))
-   // .catch( e => console.error(e))
-
-   user.find()
-   .then( r => console.log(r))
-   .catch( e => console.error(e))
-
-   // user.updateOne({ _id: '5cc5c56c853acf946814617c'}, { $set: { age: 34 }} )
-   // .then( r => {
-   //   console.log(r)
-   //   console.log('updated')
-   //   return user.find()
-   // })
-   // .then( r => console.log(r))
-   // .catch( e => console.error(e))
-   //
-   // user.deleteOne({ name: '하하' })
-   // .then( r => {
-   //   console.log(r)
-   //   console.log('updated')
-   //   return user.find()
-   // })
-   // .then( r => console.log(r))
-   // .catch( e => console.error(e))
+   if (err) return console.error(err);
+   console.log('mongoose connected!');
 });
