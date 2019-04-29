@@ -182,7 +182,7 @@ export default {
   },
   methods: {
     getReq () {
-      axios.get('/api/user', {
+      axios.get('http://localhost:3000/api/user', {
         user: 'getMan'
       })
         .then((r) => {
@@ -193,7 +193,7 @@ export default {
         })
     },
     postReq () {
-      axios.post('/api/user', {
+      axios.post('http://localhost:3000/api/user', {
         user: 'postMan'
       })
         .then((r) => {
@@ -204,7 +204,7 @@ export default {
         })
     },
     putReq () {
-      axios.put('/api/user', {
+      axios.put('http://localhost:3000/api/user', {
         user: 'putMan'
       })
         .then((r) => {
@@ -215,7 +215,7 @@ export default {
         })
     },
     delReq () {
-      axios.delete('/api/user', {
+      axios.delete('http://localhost:3000/api/user', {
         user: 'delMan'
       })
         .then((r) => {
@@ -232,7 +232,7 @@ export default {
     },
     postUser () {
       this.dialog = false
-      axios.post('/api/user', {
+      axios.post('http://localhost:3000/api/user', {
         name: this.userName,
         age: this.userAge
       })
@@ -245,7 +245,7 @@ export default {
         })
     },
     getUsers () {
-      axios.get('/api/user')
+      axios.get('http://localhost:3000/api/user')
         .then((r) => {
           this.users = r.data.users
         })
@@ -261,7 +261,7 @@ export default {
     },
     putUser () {
       this.dialog = false
-      axios.put(`/api/user/${this.putId}`, {
+      axios.put(`http://localhost:3000/api/user/${this.putId}`, {
         name: this.userName,
         age: this.userAge
       })
@@ -274,7 +274,7 @@ export default {
         })
     },
     delUser (id) {
-      axios.delete(`/api/user/${id}`)
+      axios.delete(`http://localhost:3000/api/user/${id}`)
         .then((r) => {
           this.pop('사용자 삭제 완료')
           this.getUsers()
