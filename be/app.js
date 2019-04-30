@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const history = require('connect-history-api-fallback');
 const cors = require('cors');
-
+const config = require('../config');
 
 var app = express();
 
@@ -41,7 +41,7 @@ module.exports = app;
 const mongoose = require('mongoose');
 const user = require('./models/users');
 
-mongoose.connect('mongodb://localhost:27017/nemv', { useNewUrlParser: true }, (err) => {
+mongoose.connect(config.dbUrl, { useNewUrlParser: true }, (err) => {
    if (err) return console.error(err);
    console.log('mongoose connected!');
 });
