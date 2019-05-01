@@ -4,9 +4,10 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  console.log(req.headers);
   res.send({
-    msg: 'test',
-    a: 'test root'
+    msg: 'hello',
+    a: '괜찮아'
   });
 });
 
