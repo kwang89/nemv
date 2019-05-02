@@ -47,12 +47,12 @@ mongoose.connect(config.dbUrl, { useNewUrlParser: true }, (err) => {
 });
 
 
-var jwt = require('jsonwebtoken');
-const key = 'key입니다.'
-var token = jwt.sign({ id: 'memi', email: 'memi@xxx.com' }, key);
-console.log(token);
-
- var decoded = jwt.verify(token, key); //, (err, r) => {
+// var jwt = require('jsonwebtoken');
+// const key = 'key입니다.'
+// var token = jwt.sign({ id: 'memi', email: 'memi@xxx.com' }, key);
+// console.log(token);
+//
+//  var decoded = jwt.verify(token, key); //, (err, r) => {
 //   if (err) return console.log(err);
 // });
 // console.log(decoded); // bar
@@ -114,22 +114,22 @@ console.log(token);
 //   }
 // })
 
-const signToken = (u, k) => {
-  return new Promise((resolve, reject) => {
-    jwt.sign({ name: u.name, age: u.age }, k, (err, token) => {
-      if (err) reject(err)
-      resolve(token)
-    })
-  })
-}
-const verifyToken = (t, k) => {
-  return new Promise((resolve, reject) => {
-    jwt.verify(t, k, (err, v) => {
-      if (err) reject(err)
-      resolve(v)
-    })
-  })
-}
+// const signToken = (u, k) => {
+//   return new Promise((resolve, reject) => {
+//     jwt.sign({ name: u.name, age: u.age }, k, (err, token) => {
+//       if (err) reject(err)
+//       resolve(token)
+//     })
+//   })
+// }
+// const verifyToken = (t, k) => {
+//   return new Promise((resolve, reject) => {
+//     jwt.verify(t, k, (err, v) => {
+//       if (err) reject(err)
+//       resolve(v)
+//     })
+//   })
+// }
 
 // let usr
 // user.findOne({ name: 'aaa' })
