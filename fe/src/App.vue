@@ -35,10 +35,10 @@
             <v-icon>more_vert</v-icon>
           </v-btn>
           <v-list>
-            <v-list-tile @click="$router.push('sign')">
+            <v-list-tile v-if="!$store.state.token" @click="$router.push('sign')">
               <v-list-tile-title>로그인</v-list-tile-title>
             </v-list-tile>
-            <v-list-tile @click="signOut">
+            <v-list-tile v-else @click="signOut">
               <v-list-tile-title>로그아웃</v-list-tile-title>
             </v-list-tile>
           </v-list>
@@ -49,7 +49,7 @@
       <router-view/>
     </v-content>
     <v-footer fixed app>
-      <span>&copy; 2017</span>
+      <span>&copy; 2017 {{$store.state.token}}</span>
     </v-footer>
   </v-app>
 </template>
@@ -93,7 +93,7 @@ export default {
   },
   methods: {
     signOut () {
-      localStorage.removeItem('token')
+      this.$store.commit('delToken')
       this.$router.push('/')
     }
   }
