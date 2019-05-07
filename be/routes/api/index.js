@@ -26,7 +26,6 @@ router.all('*', function(req, res, next) {
   verifyToken(token)
     .then(v => {
       req.user = v;
-      console.log(v);
       next();
     })
     .catch(e => {

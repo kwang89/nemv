@@ -8,7 +8,6 @@ router.post('/', function(req, res, next) {
   Page.findOne({ name })
     .then((r) => {
       if (!r) {
-        console.log(req.user.lv);
         if (req.user.lv) throw new Error(`페이지 ${name} 생성이 안되었습니다.`) // req.user.lv > 0
         return Page.create({ name })
       }
