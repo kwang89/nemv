@@ -6,6 +6,15 @@ const jwt = require('jsonwebtoken');
 const cfg = require('../../../../config');
 const user = require('../../../models/users');
 
+const signToken = (id, lv, name) => {
+  return new Promise((resolve, reject) => {
+    jwt.sign({ id, lv, name }, cfg.secretKey, (err, token) => {
+      if (err) reject(err)
+      resolve(token)
+    })
+  })
+};
+
 router.post('/in', (req, res) => {
   const { id, pwd } = req.body
   if (!id) return res.send({ success: false, msg: '아이디가 없습니다.'})
@@ -15,7 +24,7 @@ router.post('/in', (req, res) => {
     .then((r) => {
       if (!r) throw new Error('존재하지 않는 아이디입니다.')
       if (r.pwd !== pwd) throw new Error('비밀번호가 틀립니다.')
-      return signToken(r.id, r.age)
+      return signToken(r.id, r.lv, r.name)
     })
     .then((r) => {
       console.log(r);
@@ -35,13 +44,5 @@ router.all('*', function(req, res, next) {
   next(createError(404, '그런 api 없어'));
 });
 
-const signToken = (id, age) => {
-  return new Promise((resolve, reject) => {
-    jwt.sign({ id, age }, cfg.secretKey, (err, token) => {
-      if (err) reject(err)
-      resolve(token)
-    })
-  })
-};
 
 module.exports = router;
