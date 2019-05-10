@@ -24,6 +24,7 @@ router.all('*', function(req, res, next) {
   const token = req.headers.authorization.toString();
   verifyToken(token)
     .then(v => {
+      console.log(v);
       req.user = v;
       next();
     })
