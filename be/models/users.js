@@ -28,4 +28,16 @@ user.findOne({ id: cfg.admin.id })
     console.error(e.message)
   });
 
+user.findOne({ id: 'lv2' })
+    .then((r) => {
+      if (!r) return user.create({ id: 'lv2', pwd: '1234', name: 'lv2', lv: 2 })
+      return Promise.resolve(null)
+    })
+    .then((r) => {
+      if (r) console.log(`admin:${r.id} created!`)
+    })
+    .catch((e) => {
+      console.error(e.message)
+    });
+
 module.exports = user;

@@ -27,7 +27,6 @@ router.post('/in', (req, res) => {
       return signToken(r.id, r.lv, r.name)
     })
     .then((r) => {
-      console.log(r);
       res.send({ success: true, token: r })
     })
     .catch((e) => {

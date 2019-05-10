@@ -18,11 +18,10 @@ const verifyToken = (t) => {
 
 // 로그인 관련.. all들어가기전에 토큰없어도 실행됨.
 router.use('/sign', require('./sign'));
-router.use('/manage', require('./manage'));
 
 // 미들웨어... all이면 get, post, put, delete 전부 받는다.
 router.all('*', function(req, res, next) {
-  const token = req.headers.authorization;
+  const token = req.headers.authorization.toString();
   verifyToken(token)
     .then(v => {
       req.user = v;
@@ -32,12 +31,9 @@ router.all('*', function(req, res, next) {
       res.send({ success: false, msg: e.message });
     })
 });
-router.use('/page', require('./page'))
-router.all('*', function(req, res, next) {
-  // 또 검사해도 됨
-  if (req.user.lv > 2) return res.send({ success: false, msg: '권한이 없습니다.' })
-  next()
-})
+
+router.use('/page', require('./page'));
+router.use('/manage', require('./manage'));
 
 router.all('*', function(req, res, next) {
   next(createError(404, 'api 없음'));

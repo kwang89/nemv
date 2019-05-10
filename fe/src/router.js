@@ -8,17 +8,16 @@ Vue.config.productionTip = false
 const apiRootPath = process.env.NODE_ENV !== 'production' ? 'http://localhost:3000/api/' : '/api/'
 Vue.prototype.$apiRootPath = apiRootPath
 Vue.prototype.$axios = axios
+axios.defaults.baseURL = apiRootPath // add
+axios.defaults.headers.common['Authorization'] = localStorage.getItem('token') // add
 
 const pageCheck = (to, from, next) => {
-  // return next()
-  console.log(apiRootPath)
-  axios.post(`${apiRootPath}page`, { name: to.path.replace('/', '') }, { headers: { authorization: localStorage.getItem('token') } })
+  axios.post(`${apiRootPath}page`, { name: to.path.replace('/', '') })
     .then((r) => {
       if (!r.data.success) throw new Error(r.data.msg)
       next()
     })
     .catch((e) => {
-      // console.error(e.message)
       next(`/block/${e.message}`)
     })
 }
@@ -54,12 +53,14 @@ export default new Router({
     {
       path: '/user',
       name: '사용자',
-      component: () => import('./views/user')
+      component: () => import('./views/user'),
+      beforeEnter: pageCheck
     },
     {
       path: '/page',
       name: '페이지',
-      component: () => import('./views/page')
+      component: () => import('./views/page'),
+      beforeEnter: pageCheck
     },
     {
       path: '/block/:msg',

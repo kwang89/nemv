@@ -11,7 +11,9 @@ router.post('/', function(req, res, next) {
         if (req.user.lv) throw new Error(`페이지 ${name} 생성이 안되었습니다.`) // req.user.lv > 0
         return Page.create({ name })
       }
-      if (r.lv < req.user.lv) throw new Error(`페이지 ${name} 이용 자격이 없습니다.`)
+      if (r.lv < req.user.lv) {
+        throw new Error(`페이지 ${name} 이용 자격이 없습니다.`)
+      }
       return Page.updateOne({ _id: r._id }, { $inc: { inCnt: 1 } })
     })
     .then(() => {
