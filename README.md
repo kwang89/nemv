@@ -7,6 +7,11 @@ node express mongo vue
     ```javascript
     module.exports = {
       dbUrl: 'mongodb://localhost:27017/nemv',
+      admin: {
+          id: 'admin',
+          pwd: '1234'
+      },
+      secretKey: 'abcdefg'
     }
     ```  
 이런식으로 디비 연결 문자열을 작성해야 웹서버가 정상 구동됨.
