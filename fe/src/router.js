@@ -85,6 +85,12 @@ export default new Router({
       beforeEnter: pageCheck
     },
     {
+      path: '/site',
+      name: '사이트',
+      component: () => import('./views/site'),
+      beforeEnter: pageCheck
+    },
+    {
       path: '/block/:msg',
       name: '차단',
       component: () => import('./views/block')

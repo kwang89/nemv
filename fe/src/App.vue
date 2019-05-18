@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app :dark="siteDark">
     <v-navigation-drawer
       persistent
       v-model="drawer"
@@ -27,7 +27,7 @@
       app
     >
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title v-text="title"></v-toolbar-title>
+      <v-toolbar-title v-text="siteTitle"></v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-menu bottom left>
@@ -49,7 +49,7 @@
       <router-view/>
     </v-content>
     <v-footer fixed app>
-      <span>&copy; 2017 {{$store.state.token}}</span>
+      <span>{{siteCopyright}}</span>
     </v-footer>
   </v-app>
 </template>
@@ -63,6 +63,9 @@ export default {
       clipped: false,
       drawer: true,
       fixed: false,
+      siteTitle: '미정',
+      siteCopyright: '© 2018 아직 주인 없음',
+      siteDark: false,
       items: [
         {
           icon: 'home',
@@ -105,14 +108,30 @@ export default {
           to: {
             path: '/page'
           }
+        },
+        {
+          icon: 'face',
+          title: '사이트관리',
+          to: {
+            path: '/site'
+          }
         }
       ],
       title: this.$apiRootPath
     }
   },
   mounted () {
+    this.getSite()
   },
   methods: {
+    getSite () {
+      this.$axios.get('site')
+        .then(r => {
+          this.siteTitle = r.data.d.title
+          this.siteCopyright = r.data.d.copyright
+          this.siteDark = r.data.d.dark
+        })
+    },
     signOut () {
       this.$store.commit('delToken')
       this.$router.push('/')
