@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const cfg = require('../../config');
 mongoose.set('useCreateIndex', true);
+const crypto = require('crypto');
 
 const userSchema = new mongoose.Schema({
   name: { type: String, default: '' },
@@ -14,30 +15,25 @@ const userSchema = new mongoose.Schema({
 
 const user = mongoose.model('user', userSchema);
 //user.collection.dropIndexes({ name: 1 });
-
+// user.deleteMany({}).then(r => console.log(r))
 user.findOne({ id: cfg.admin.id })
   .then((r) => {
-    if (!r) return user.create({ id: cfg.admin.id, pwd: cfg.admin.pwd, name: cfg.admin.name })
+    if (!r) return user.create({ id: cfg.admin.id, pwd: cfg.admin.pwd, name: cfg.admin.name, lv: 0 })
     // if (r.lv === undefinded) return user.updateOne({ id: r._id}, {$set: {lv: 0, inCnt: 0}})
     return Promise.resolve(null)
   })
   .then((r) => {
+    if (!r) Promise.resolve(null)
+    if (r.pwd !== cfg.admin.pwd) Promise.resolve(null)
     if (r) console.log(`admin:${r.id} created!`)
+    const pwd = crypto.scryptSync(r.pwd, r._id.toString(), 64, { N: 1024 }).toString('hex')
+    return user.updateOne({ _id: r._id}, { $set: { pwd } })
+  })
+  .then((r) => {
+    if (r) console.log(`password changed`)
   })
   .catch((e) => {
     console.error(e.message)
   });
-
-user.findOne({ id: 'lv2' })
-    .then((r) => {
-      if (!r) return user.create({ id: 'lv2', pwd: '1234', name: 'lv2', lv: 2 })
-      return Promise.resolve(null)
-    })
-    .then((r) => {
-      if (r) console.log(`admin:${r.id} created!`)
-    })
-    .catch((e) => {
-      console.error(e.message)
-    });
 
 module.exports = user;

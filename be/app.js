@@ -183,3 +183,11 @@ mongoose.connect(config.dbUrl, { useNewUrlParser: true }, (err) => {
 // getToken('aaa')
 //   .then(v => console.log(v))
 //   .catch(err => console.error(err.message))
+
+// const crypto = require('crypto');
+// // Using the factory defaults.
+// const key1 = crypto.scryptSync('secret', 'salt', 64);
+// console.log(key1.toString('hex'));  // '3745e48...08d59ae'
+// // Using a custom N parameter. Must be a power of two.
+// const key2 = crypto.scryptSync('secret', 'salt', 64, { N: 1024 });
+// console.log(key2.toString('hex'));  // '3745e48...aa39b34'

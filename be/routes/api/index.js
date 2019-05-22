@@ -19,6 +19,7 @@ const verifyToken = (t) => {
 // 로그인 관련.. all들어가기전에 토큰없어도 실행됨.
 router.use('/sign', require('./sign'));
 router.use('/site', require('./site'));
+router.use('/register', require('./register'));
 
 // 미들웨어... all이면 get, post, put, delete 전부 받는다.
 router.all('*', function(req, res, next) {
