@@ -104,7 +104,7 @@ export default {
           icon: 'face',
           title: '사용자관리',
           to: {
-            path: '/user'
+            path: '/users'
           }
         },
         {
