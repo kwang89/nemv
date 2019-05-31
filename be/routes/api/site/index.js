@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
     })
     .then(r => {
       if (!r) console.log(`$${r.title} created`);
-      res.send({ success: true, d: r });
+      res.send({ success: true, d: r, token: req.token });
     })
     .catch(e => {
       res.send({ success: false, msg: e.message });

@@ -13,7 +13,8 @@ axios.defaults.baseURL = apiRootPath // add
 // Add a request interceptor
 axios.interceptors.request.use(function (config) {
   // Do something before request is sent
-  config.headers.Authorization = localStorage.getItem('token')
+  const token = localStorage.getItem('token')
+  config.headers.Authorization = token
   return config
 }, function (error) {
   // Do something with request error
