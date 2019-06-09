@@ -11,5 +11,6 @@ router.all('*', function(req, res, next) {
 router.use('/user', require('./user'));
 router.use('/page', require('./page'));
 router.use('/site', require('./site'));
+router.use('/board', require('./board'))
 
 module.exports = router;
